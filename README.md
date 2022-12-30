@@ -7,7 +7,7 @@ Uploading tip: The M0 processer that both boards use sometimes needs to be force
 
 Trinket M0: https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/pinouts
 
-![Schematic](https://github.com/xzhang03/Encoder_USB/blob/main/Trinket%20variant/Schematic_IR%20rotary%20encoder%20trinket%20v1_2022-12-29)
+![Schematic](https://github.com/xzhang03/Encoder_USB/blob/main/Trinket%20variant/Schematic_IR%20rotary%20encoder%20trinket%20v1_2022-12-29.png)
 
 Seeeduino Xiao: https://wiki.seeedstudio.com/Seeeduino-XIAO/
 
