@@ -80,6 +80,7 @@ void loop() {
     // Read
     pos = myEnc.read();
 
+
     // Decide what to write
     // V index
     if ((pos > -4) && (pos < 4)){
@@ -95,6 +96,12 @@ void loop() {
       
       // Forward
       pos2 = pos / 4;
+
+      if (pos2 > 4){
+        pos2 = 4;
+      }
+      
+      // Ind
       vind = 9 - pos2;
       
       // LED indicator on
@@ -119,6 +126,13 @@ void loop() {
       
       // Backward
       pos2 = pos / 4;
+      
+      // Cap speed
+      if (pos2 <= -4){
+        pos2 = -4;
+      }
+      
+      // Ind
       vind = -(pos2 + 1);
 
       // LED indicator on
