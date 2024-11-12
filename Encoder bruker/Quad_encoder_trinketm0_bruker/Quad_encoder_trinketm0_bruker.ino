@@ -1,6 +1,6 @@
 // Make sure encoder library is 1.4.3 or later
-#define debug true
-#define debugstream true
+#define debug false
+#define debugstream false
 
 // Turn off neopixel
 #include <Adafruit_DotStar.h>
@@ -31,7 +31,7 @@ int8_t vind;
 uint8_t max_step = 4;
 
 // Encoder
-long pos;
+long pos, pos2;
 long debug_pos, debug_pos0;
 
 // time variables
@@ -78,8 +78,77 @@ void loop() {
     t0 = tnow;
 
     // Read
-    pos = myEnc.read() / 4;
+    pos = myEnc.read();
 
+    // Decide what to write
+    // V index
+    if ((pos > -4) && (pos < 4)){
+      // Make sure the quad signals are super-threshold (+/-4)
+      // No step
+      pos2 = 0;
+      vind = 4;
+
+      // Update LED to off
+      led = false;
+    }
+    else if (pos > 4){
+      
+      // Forward
+      pos2 = pos / 4;
+      vind = 9 - pos2;
+      
+      // LED indicator on
+      led = true;
+      myEnc.write(pos - pos2 * 4);
+
+      // Debug stream
+      // Serial debug
+      #if debugstream
+        debug_pos = debug_pos + pos2;
+        if ((debug_pos - debug_pos0) != 0){
+          Serial.print(pos);
+          Serial.print(" ");
+          Serial.print(pos2);
+          Serial.print(" ");
+          Serial.println(debug_pos);
+          debug_pos0 = debug_pos;
+        }
+      #endif
+    }
+    else if (pos <= -4){
+      
+      // Backward
+      pos2 = pos / 4;
+      vind = -(pos2 + 1);
+
+      // LED indicator on
+      led = true;
+      myEnc.write(pos - pos2 * 4);
+
+      // Debug stream
+      // Serial debug
+      #if debugstream
+        debug_pos = debug_pos + pos2;
+        if ((debug_pos - debug_pos0) != 0){
+          Serial.print(pos);
+          Serial.print(" ");
+          Serial.print(pos2);
+          Serial.print(" ");
+          Serial.println(debug_pos);
+          debug_pos0 = debug_pos;
+        }
+      #endif
+    }
+
+    // Write
+    analogWrite(A0, vsteps[vind]);
+
+    // Update
+    stepdone = true;
+    
+    // led
+    digitalWrite(ledpin, led);
+    
     // Debug 
     #if debug
       if (Serial.available() > 1) {
@@ -101,62 +170,15 @@ void loop() {
         Serial.print(": ");
         Serial.print(pos);
 
-        debugflag1 = true;
-      }
-    #endif
-
-    // Decide what to write
-    // V index
-    if (pos == 0){
-      // No step
-      vind = 4;
-
-      // Update LED to off
-      led = false;
-    }
-    else if (pos > 0){
-      // Forward
-      vind = 9 - pos;
-
-      // LED indicator on
-      led = true;
-    }
-    else if (pos < 0){
-      // Backward
-      vind = -(pos + 1);
-
-      // LED indicator on
-      led = true;
-    }
-
-    // Write
-    analogWrite(A0, vsteps[vind]);
-
-    #if debug
-      if (debugflag1){
         Serial.print(" ");
         Serial.print(vind);
         Serial.print(" ");
         Serial.println(vsteps[vind]);
-        debugflag1 = false;
       }
     #endif
-    
-    // Update
-    stepdone = true;
-    myEnc.write(0);
 
-    // led
-    digitalWrite(ledpin, led);
     
-    // Serial debug
-    #if debugstream
-      debug_pos = debug_pos + pos;
-      if ((debug_pos - debug_pos0) != 0){
-        Serial.println(debug_pos);
-        debug_pos0 = debug_pos;
-      }
-    #endif
+
   }
   else if (((tnow - t0) > twidth) && stepdone){
     // Turn off the step
