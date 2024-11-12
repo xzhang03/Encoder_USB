@@ -1,6 +1,6 @@
 // Make sure encoder library is 1.4.3 or later
-#define debug false
-#define debugstream false
+#define debug true
+#define debugstream true
 
 // Turn off neopixel
 #include <Adafruit_DotStar.h>
@@ -19,19 +19,20 @@ const byte ledpin = 13;
 const byte trigpin = 0;
 
 // Analog out cycle cycle
-unsigned long tcycle = 4000; // us, how often analog writes are sent
-unsigned long twidth = 2000; // us, how long each analog write is
+unsigned long tcycle = 6000; // us, how often analog writes are sent
+unsigned long twidth = 4000; // us, how long each analog write is
 
 // Analog voltages (10 bit dac)
 // Range: 4 steps forward or backward per cycle. Most of time it should be 1 step, so vsteps are largest in these situations
 // indices     =     { 0,   1,   2,   3,   4,   5,   6,   7,    8}
-// Step counts =     {-1,  -2,  -3,  -4,   0,   4,   3,   2,    1}
+// Pos         =     {-1,  -2,  -3,  -4,   0,   4,   3,   2,    1}
 uint16_t vsteps[9] = { 0, 127, 255, 383, 511, 639, 764, 895, 1023};
 int8_t vind;
 uint8_t max_step = 4;
 
 // Encoder
 long pos;
+long debug_pos, debug_pos0;
 
 // time variables
 unsigned long tnow, t0;
@@ -61,6 +62,10 @@ void setup() {
   tnow = micros();
   t0 = micros();
 
+  #if debugstream
+    debug_pos = 0;
+    debug_pos0 = 0;
+  #endif
 }
 
 void loop() {
@@ -73,7 +78,7 @@ void loop() {
     t0 = tnow;
 
     // Read
-    pos = myEnc.read();
+    pos = myEnc.read() / 4;
 
     // Debug 
     #if debug
@@ -146,7 +151,11 @@ void loop() {
     
     // Serial debug
     #if debugstream
-      Serial.println(pos);
+      debug_pos = debug_pos + pos;
+      if ((debug_pos - debug_pos0) != 0){
+        Serial.println(debug_pos);
+        debug_pos0 = debug_pos;
+      }
     #endif
   }
   else if (((tnow - t0) > twidth) && stepdone){
