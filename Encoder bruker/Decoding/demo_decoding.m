@@ -13,10 +13,16 @@ for i = 1 : nfiles
     fclose(fid);
 end
 
+% Plot
 figure
 for i = 1 : nfiles
-    subplot(nfiles, 1, i)
+    subplot(nfiles, 2, (i-1)*2+1)
     plot(vdata{i})
+    
+    if i == 1
+        title('Encoder output')
+    end
+    ylabel('V')
 end
 
 %% Decode
@@ -27,8 +33,13 @@ for i = 1 : nfiles
     qdata{i} = AnalogQuadDecoder(vdata{i});
 end
 
-figure
+
 for i = 1 : nfiles
-    subplot(nfiles, 1, i)
+    subplot(nfiles, 2, i*2)
     plot(qdata{i})
+
+    if i == 1
+        title('Decoded position')
+    end
+    ylabel('Steps')
 end
