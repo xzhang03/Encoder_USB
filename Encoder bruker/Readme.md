@@ -31,4 +31,5 @@ Notes:
 
 ## Decoder demo
 See folder for MATLAB code
+
 ![Decoder_demo](https://github.com/xzhang03/Encoder_USB/blob/main/Encoder%20bruker/Decoding/demo.png)
