@@ -17,4 +17,4 @@ Seeeduino Xiao: https://wiki.seeedstudio.com/Seeeduino-XIAO/
 
 Trinket M0 for Bruker scope:
 
-![Schematic] (https://github.com/xzhang03/Encoder_USB/blob/main/Encoder%20bruker/PCB/Schematic_IR%20rotary%20encoder%20bruker%20trinket_2024-11-13.png)
+![Schematic](https://github.com/xzhang03/Encoder_USB/blob/main/Encoder%20bruker/PCB/Schematic_IR%20rotary%20encoder%20bruker%20trinket_2024-11-13.png)
