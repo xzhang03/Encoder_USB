@@ -14,3 +14,7 @@ Trinket M0: https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino
 Seeeduino Xiao: https://wiki.seeedstudio.com/Seeeduino-XIAO/
 
 ![Schematic](https://github.com/xzhang03/Encoder_USB/blob/main/Xiao%20variant/Schematic_IR%20rotary%20encoder%20xiao%20v1_2022-12-18.png)
+
+Trinket M0 for Bruker scope:
+
+![Schematic] (https://github.com/xzhang03/Encoder_USB/blob/main/Encoder%20bruker/PCB/Schematic_IR%20rotary%20encoder%20bruker%20trinket_2024-11-13.png)
