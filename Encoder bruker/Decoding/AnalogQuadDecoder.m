@@ -2,6 +2,7 @@ function position = AnalogQuadDecoder(vin, varargin)
 % AnalogQuadDecoder decodes position data from voltage recordings of the
 % Trinket M0-based quad encoder.
 
+
 %% Parse inputs
 if nargin < 2
     varargin = {};

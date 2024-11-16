@@ -7,10 +7,7 @@ nfiles = length(fns);
 vdata = cell(nfiles, 1);
 
 for i = 1 : nfiles
-    fid = fopen(fns{i});
-    vdata{i} = fread(fid, inf, 'int16');
-    vdata{i} = vdata{i} / 2^15 * 10; % Convert to volage
-    fclose(fid);
+    vdata{i} = brukerEphys(fns{i}, 1);
 end
 
 % Plot
