@@ -7,6 +7,11 @@ Uploading tip: The M0 processer that both boards use sometimes needs to be force
 
 Current limiting resistor (R1) range: at least 150-350 Ohm if not wider.
 
+Other materials:
+1. Trinket M0 or Seeduino Xiao (https://www.digikey.com/en/products/detail/adafruit-industries-llc/3500/7623049 or https://www.seeedstudio.com/Seeeduino-XIAO-Arduino-Microcontroller-SAMD21-Cortex-M0+-p-4426.html?srsltid=AfmBOorSPU8L50Ccfkl9YRvv_EpWkJx2PyD0_0IXjHSxFDpQNNoXNcFq)
+2. Beam breakers (https://www.digikey.com/en/products/detail/sharp-socle-technology/GP1A57HRJ00F/718287)
+3. Resistor (any 330 Ohm through-hole resistor will do)
+
 Trinket M0 (most common for NLW scope): https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/pinouts
 
 ![Schematic](https://github.com/xzhang03/Encoder_USB/blob/main/Trinket%20variant/Schematic_IR%20rotary%20encoder%20trinket%20v1_2022-12-29.png)
